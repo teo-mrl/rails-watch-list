@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsWatchList</title>
+    <title>RailsWatchList - <%= @lists.map(&:name).join(', ') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,56 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>Home</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>Lists</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>Movies</button>
+                  </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>Signed in as</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>User Email</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-link text-muted" disabled>Sign out</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <% @lists.each do |list| %>
+  <div class="col mb-4">
+    <!-- Utiliser link_to pour créer un lien autour de la div -->
+    <%= link_to list_path(list), class: "text-decoration-none" do %>
+      <div class="card h-100">
+        <img src="https://placehold.co/600x400/f0f0f0/cccccc/?text=<%= list.name %>" class="card-img-top" alt="<%= list.name %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= list.name %></h5>
+          <p class="card-text">Save any kind of movies</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
   </body>
 </html>
